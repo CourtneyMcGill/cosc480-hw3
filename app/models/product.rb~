@@ -1,0 +1,33 @@
+class Product < ActiveRecord::Base
+  def age_range
+        if self.minimum_age_appropriate == nil
+                "0 and above"
+        elsif self.maximum_age_appropriate == nil
+                "#{self.minimum_age_appropriate} and above"
+        elsif self.minimum_age_appropriate == self.maximum_age_appropriate
+                "Age #{self.minimum_age_appropriate}"
+        else
+                "#{self.minimum_age_appropriate} to #{self.maximum_age_appropriate}"
+        end
+  end
+
+  def age_appropriate?(age)
+        if self.minimum_age_appropriate == nil #no age limits
+                true
+        elsif self.minimum_age_appropriate <= age #too young
+                true
+        elsif self.maximum_age_appropriate >= age #too old
+                true
+        else #appropriate age
+                false
+        end
+  end
+
+  def self.sorted_by(field)
+        if self.column_names.include?(field)
+                self.order(field)
+        else
+                self.order("name")
+        end
+  end
+end

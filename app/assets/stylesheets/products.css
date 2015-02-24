@@ -38,6 +38,7 @@ body .products_table {
   font-weight: 200;
   font-style: normal; 
 }
+
 body .products_table caption {
   font-family: Helvetica, sans-serif;
   font-size: 20pt;
@@ -52,3 +53,6 @@ body a:link, body a:visited, body .products_table th {
   background-color: #6D8DB7; 
 }
 
+body #price{
+  text-align: right;
+}
