@@ -1,0 +1,19 @@
+#main
+  %hw Edit Product
+
+  %p= link_to "Cancel", product_path(@product)
+  = form_for @product do |field|
+    %p=field.label :name
+    %p=field.text_field :name
+    %p=field.label :description
+    %p=field.text_field :description
+    %p=field.label :minimum_age_appropriate
+    %p=field.number_field :minimum_age_appropriate
+    %p=field.label :maximum_age_appropriate
+    %p=field.number_field :maximum_age_appropriate
+    %p=field.label :price
+    %p=field.number_field :price, :step => 0.01
+    %p=field.label :image
+    %p=field.file_field :image
+    %p=field.submit
+%p= link_to "Cancel", product_path(@product)

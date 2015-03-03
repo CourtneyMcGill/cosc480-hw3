@@ -1,15 +1,22 @@
 #main
   %h3 All products
-
+  %p
+    =form_for products_path, method: 'get' do
+      = label_tag "minimum age"
+      = label_tag "maximum price"
   %table.products_table
-    %tr.products_header
-      %th Name
+    %tr.products_header_
+      %th= "Image"
+      %th= link_to "Name", products_path(sort: "name")
       %th Description
-      %th Appropriate ages
-      %th Price
-  -@products.each do |p|
-    %tr
-      %td= p.name
-      %td= p.description
-      %td= p.age_range
-      %td= p.price
+      %th= link_to "Appropriate age", products_path(sort: "minimum_age_appropriate")
+      %th= link_to "Price", products_path(sort: "price")
+    -@products.each do |p|
+      %tr
+        %td= image_tag(p.image.url(:thumb))
+        %td.productname= link_to "#{p.name}", product_path(p)
+        %td= p.description
+        %td= p.age_range
+        %td#price= number_to_currency(p.price)
+  %tr
+  %td= link_to "Create a new product", new_product_path

@@ -1,4 +1,9 @@
 class Product < ActiveRecord::Base
+
+  has_attached_file :image, :styles=> {:medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/noimg.jpg"
+
+  validates_attachment :image, :content_type => {:content_type => ["image/jpeg", "image/png", "image/gif"]}
+
   def age_range
         if self.minimum_age_appropriate == nil
                 "0 and above"
@@ -27,6 +32,24 @@ class Product < ActiveRecord::Base
                         false
                 end
         end
+  end
+
+  def self.filter_by(filter)
+    if filter == nil
+        Product.all
+    else
+        min_age = filter[:min_age]
+        max_price = filter[:max_price]
+        if min_age != "" && max_price != ""
+            Product.where("(minimum_age_appropriate <= ? OR minimum_age_appropriate IS NULL) AND price <= ?", min_age, max_price)
+        elsif min_age != ""
+            Product.where("minimum_age_appropriate <= ? OR minimum_age_appropriate IS NULL", min_age)
+        elsif max_price != ""
+            Product.where("price <= ?", max_price)
+        else
+            Product.all
+        end
+    end
   end
 
   def self.sorted_by(field)
