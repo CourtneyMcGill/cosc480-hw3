@@ -36,8 +36,9 @@ class ProductsController < ApplicationController
   end
 
   def create
-    if @product = Product.create(create_update_params)
-        flash[:notice] = "New product #{@product.name} created sucessfully"
+    @product = Product.new(create_update_params)
+    if @product.save
+        flash[:notice] = "New product #{@product.name} created successfully"
         redirect_to products_path
     else
         flash[:warning] = "Your new product was not uploaded"
@@ -52,7 +53,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update(create_update_params)
-        flash[:notice] = "#{@product.name} sucessfully updated"
+        flash[:notice] = "#{@product.name} successfully updated"
         redirect_to product_path(@product)
     else
         flash[:warning] = "The product was NOT updated!"

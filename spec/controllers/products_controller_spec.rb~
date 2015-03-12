@@ -43,6 +43,31 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
+#  describe "POST edit" do
+#    it "fails to update a product with bad input, shows the correct flash" do
+ #     p = Product.edit
+ #     expect(Product).to receive(:find).with("1") { p }
+ #     get :show, id: 1
+#      p = mock('Product')
+#      p.stub(:save).and_return(true)
+#      expect(p).to receive(:new).and_return(true)
+#      p.edit
+#      p.should_recieve(:save).and_return(true)
+#      post :update, { :product => {"name" => "dummy"}}
+#      response.should redirect_to(product_path(p))
+#      expect(flash[:notice]).to be_present
+#    end
+#  end
+      
+      
+#      p.stub(:save).and_return(true)
+#      p.should_receive(:edit).and_return(p)
+#      p.should_receive(:save).and_return(nil)
+#      post :update, {:product => {"name" => "dummy"}}
+#      response.should redirect_to(product_path(p))
+#      expect(flash[:warning]).to be_present
+#    end
+#  end
 
   describe "GET #show" do
     it "routes correctly" do

@@ -35,20 +35,16 @@ class Product < ActiveRecord::Base
   end
 
   def self.filter_by(filter)
-    if filter == nil
-        Product.all
+    min_age = filter[:min_age]
+    max_price = filter[:max_price]
+    if min_age != "" && max_price != ""
+        Product.where("(minimum_age_appropriate <= ? OR minimum_age_appropriate IS NULL) AND price <= ?", min_age, max_price)
+    elsif min_age != ""
+        Product.where("minimum_age_appropriate <= ? OR minimum_age_appropriate IS NULL", min_age)
+    elsif max_price != ""
+        Product.where("price <= ?", max_price)
     else
-        min_age = filter[:min_age]
-        max_price = filter[:max_price]
-        if min_age != "" && max_price != ""
-            Product.where("(minimum_age_appropriate <= ? OR minimum_age_appropriate IS NULL) AND price <= ?", min_age, max_price)
-        elsif min_age != ""
-            Product.where("minimum_age_appropriate <= ? OR minimum_age_appropriate IS NULL", min_age)
-        elsif max_price != ""
-            Product.where("price <= ?", max_price)
-        else
-            Product.all
-        end
+        Product.all
     end
   end
 
